@@ -1,5 +1,9 @@
 @import 'harmoware-vis/scss/harmoware.scss';
 
+body {
+  background: white;
+}
+
 div.harmovis_controller {
     @extend .harmovis_controller;
     width: 260px;
@@ -20,5 +24,32 @@ div.harmovis_controller {
     button.harmovis_button {
         width: 100%;  
     }
+    select.harmovis_select {
+      background: #808080;
+      border-radius: 2px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: .026em;
+      line-height: 14px;
+      padding: 3px 12px;
+      text-align: center;
+      vertical-align: middle;
+      width: 100%;
+      border-width: 0px;
+      box-shadow: 1px 1px 1px #555;
+      transition: all .2s ease;
+      &:hover {
+        background: #A0A0A0;
+      }
+    }
 }
-  
+#parent {
+  display: flex;
+  width: 100%;
+}
+#child {
+  flex-grow: 1;
+  width: 50%;
+  margin: 10px;
+}

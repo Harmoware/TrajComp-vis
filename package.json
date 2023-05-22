@@ -1,13 +1,13 @@
 {
-  "name": "populationchange",
+  "name": "trajcomp-vis",
   "version": "1.0.0",
-  "description": "PopulationChange",
+  "description": "TrajComp-vis",
   "main": "index.js",
   "scripts": {
     "start": "webpack-cli serve --port 3030 --open --mode development",
     "build": "webpack --mode production"
   },
-  "author": "populationchange",
+  "author": "trajcomp-vis",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.17.10",
@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "1.8.1",
     "babel-loader": "8.2.5",
     "css-loader": "5.2.7",
-    "harmoware-vis": "1.8.13",
+    "harmoware-vis": "1.8.22",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-redux": "8.0.2",
