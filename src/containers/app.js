@@ -42,6 +42,7 @@ const App = (props)=>{
   const [movebase1,setMovebase1] = React.useState({startTime:0,endTime:0,movebase:[]})
   const [movebase2,setMovebase2] = React.useState({startTime:0,endTime:0,movebase:[]})
   const [pathData,setPathData] = React.useState([])
+  const [state,setState] = React.useState({ popup: [0, 0, ''] })
 
   React.useEffect(()=>{
     actions.setLeading(3600);
@@ -124,10 +125,22 @@ const App = (props)=>{
     setColorPattern(+e.target.value);
   }
 
+  const updateState = (updateData)=>{
+    setState({...state, ...updateData})
+  }
+
   const onHover = (el)=>{
-    if (el && el.object) {
-      const disptext = `${el.object}\n` +
-      updateState({ popup: [el.x, el.y, disptext] });
+    if (el && el.object && el.layer) {
+      if(el.layer.id === "PathLayer"){
+        const disptext = `${el.object.N02_005}`
+        updateState({ popup: [el.x, el.y, disptext] });
+      }else
+      if(el.layer.id === "PolygonLayer1" || el.layer.id === "PolygonLayer2"){
+        const disptext = `mid:${el.object.mid}\nuserCnt:${el.object.userCnt}`
+        updateState({ popup: [el.x, el.y, disptext] });
+      }else{
+        updateState({ popup: [0, 0, ''] });
+      }
     } else {
       updateState({ popup: [0, 0, ''] });
     }
@@ -213,7 +226,7 @@ const App = (props)=>{
               mapboxApiAccessToken={MAPBOX_TOKEN}
               layers={[
                 new PathLayer({
-                  id: 'PathLayer1',
+                  id: 'PathLayer',
                   data: pathData,
                   getPath: x=>x.path,
                   getWidth: 10,
@@ -222,6 +235,7 @@ const App = (props)=>{
                   widthMinPixels: 1,
                   rounded: true,
                   billboard: true,
+                  pickable: false,
                   onHover
                 }),
                 new PolygonLayer({
@@ -234,6 +248,7 @@ const App = (props)=>{
                   elevationScale:elevationScale,
                   extruded:true,
                   opacity: 0.5,
+                  pickable: false,
                   onHover
                 }),
               ]}
@@ -245,7 +260,7 @@ const App = (props)=>{
               mapboxApiAccessToken={MAPBOX_TOKEN}
               layers={[
                 new PathLayer({
-                  id: 'PathLayer1',
+                  id: 'PathLayer',
                   data: pathData,
                   getPath: x=>x.path,
                   getWidth: 10,
@@ -254,6 +269,7 @@ const App = (props)=>{
                   widthMinPixels: 1,
                   rounded: true,
                   billboard: true,
+                  pickable: false,
                   onHover
                 }),
                 new PolygonLayer({
@@ -266,6 +282,7 @@ const App = (props)=>{
                   elevationScale:elevationScale,
                   extruded:true,
                   opacity: 0.5,
+                  pickable: false,
                   onHover
                 }),
               ]}
