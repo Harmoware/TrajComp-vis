@@ -106,12 +106,12 @@ const App = (props)=>{
       }
       if(keyName === "("){
         const value = props.multiplySpeed - (event.ctrlKey?1:10)
-        const multiplySpeed = Math.min(3600, Math.max(1, value));
+        const multiplySpeed = Math.min(3600*3, Math.max(1, value));
         actions.setMultiplySpeed(multiplySpeed);
       }
       if(keyName === ")"){
         const value = props.multiplySpeed + (event.ctrlKey?1:10)
-        const multiplySpeed = Math.min(3600, Math.max(1, value));
+        const multiplySpeed = Math.min(3600*3, Math.max(1, value));
         actions.setMultiplySpeed(multiplySpeed);
       }
     }
@@ -194,8 +194,8 @@ const App = (props)=>{
             <ElapsedTimeRange settime={settime} timeLength={timeLength} timeBegin={timeBegin} actions={actions} min={leading*-1} id="ElapsedTimeRange" />
           </li>
           <li className="flex_column">
-            <label htmlFor="SpeedRange">スピード<SpeedValue multiplySpeed={multiplySpeed} actions={actions} />倍速</label>
-            <SpeedRange multiplySpeed={multiplySpeed} actions={actions} id="SpeedRange" />
+            <label htmlFor="SpeedRange">スピード<SpeedValue maxmultiplySpeed={3600*3} multiplySpeed={multiplySpeed} actions={actions} />倍速</label>
+            <SpeedRange maxmultiplySpeed={3600*3} multiplySpeed={multiplySpeed} actions={actions} id="SpeedRange" />
           </li>
           <li className="flex_column">
             <label htmlFor="elevationScale">高さスケール
