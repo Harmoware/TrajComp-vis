@@ -131,13 +131,23 @@ const App = (props)=>{
 
   const onHover = (el)=>{
     if (el && el.object && el.layer) {
-      if(el.layer.id === "PathLayer"){
-        const disptext = `${el.object.N02_005}`
+      if(el.layer.id === "PathLayer1"){
+        const disptext = `${el.object.N02_003}\n${el.object.N02_005}`
         updateState({ popup: [el.x, el.y, disptext] });
       }else
-      if(el.layer.id === "PolygonLayer1" || el.layer.id === "PolygonLayer2"){
+      if(el.layer.id === "PathLayer2"){
+        const shift = window.innerWidth/2
+        const disptext = `${el.object.N02_003}\n${el.object.N02_005}`
+        updateState({ popup: [el.x+shift, el.y, disptext] });
+      }else
+      if(el.layer.id === "PolygonLayer1"){
         const disptext = `mid:${el.object.mid}\nuserCnt:${el.object.userCnt}`
         updateState({ popup: [el.x, el.y, disptext] });
+      }else
+      if(el.layer.id === "PolygonLayer2"){
+        const shift = window.innerWidth/2
+        const disptext = `mid:${el.object.mid}\nuserCnt:${el.object.userCnt}`
+        updateState({ popup: [el.x+shift, el.y, disptext] });
       }else{
         updateState({ popup: [0, 0, ''] });
       }
@@ -226,16 +236,16 @@ const App = (props)=>{
               mapboxApiAccessToken={MAPBOX_TOKEN}
               layers={[
                 new PathLayer({
-                  id: 'PathLayer',
+                  id: 'PathLayer1',
                   data: pathData,
                   getPath: x=>x.path,
                   getWidth: 10,
                   getColor: [0,255,0,255],
                   widthUnits: 'meters',
                   widthMinPixels: 1,
-                  rounded: true,
+                  capRounded: true,
                   billboard: true,
-                  pickable: false,
+                  pickable: true,
                   onHover
                 }),
                 new PolygonLayer({
@@ -248,7 +258,7 @@ const App = (props)=>{
                   elevationScale:elevationScale,
                   extruded:true,
                   opacity: 0.5,
-                  pickable: false,
+                  pickable: true,
                   onHover
                 }),
               ]}
@@ -260,16 +270,16 @@ const App = (props)=>{
               mapboxApiAccessToken={MAPBOX_TOKEN}
               layers={[
                 new PathLayer({
-                  id: 'PathLayer',
+                  id: 'PathLayer2',
                   data: pathData,
                   getPath: x=>x.path,
                   getWidth: 10,
                   getColor: [0,255,0,255],
                   widthUnits: 'meters',
                   widthMinPixels: 1,
-                  rounded: true,
+                  capRounded: true,
                   billboard: true,
-                  pickable: false,
+                  pickable: true,
                   onHover
                 }),
                 new PolygonLayer({
@@ -282,7 +292,7 @@ const App = (props)=>{
                   elevationScale:elevationScale,
                   extruded:true,
                   opacity: 0.5,
-                  pickable: false,
+                  pickable: true,
                   onHover
                 }),
               ]}
@@ -290,6 +300,17 @@ const App = (props)=>{
           </div>
         </div>
       </div>
+      <svg width={window.innerWidth} height={window.innerHeight} className="harmovis_overlay">
+        <g fill="white" fontSize="12">
+          {state.popup[2].length > 0 ?
+            state.popup[2].split('\n').map((value, index) =>
+              <text
+                x={state.popup[0] + 10} y={state.popup[1] + (index * 12)}
+                key={index.toString()}
+              >{value}</text>) : null
+          }
+        </g>
+      </svg>
       <FpsDisplay />
     </SubContainer>
   );
