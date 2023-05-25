@@ -305,7 +305,7 @@ const App = (props)=>{
           {state.popup[2].length > 0 ?
             state.popup[2].split('\n').map((value, index) =>
               <text
-                x={state.popup[0] + 10} y={state.popup[1] + (index * 12)}
+                x={state.popup[0] + 20} y={state.popup[1] + (index * 12)}
                 key={index.toString()}
               >{value}</text>) : null
           }
